@@ -8,26 +8,26 @@ import java.sql.SQLException;
 public class DB {
 
 	private static Connection connection = null;
-	
+
 	/**
 	 * Creates a connection to the database. This method is called when the program starts
-	 * 
+	 *
 	 * @author Niklas Sølvberg
 	 */
 	public static void connect() {
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://mysql02.it.ntnu.no:3306/niklaso_tdt4140?useSSL=false", "niklaso_tdt4140", "gruppe69");
+			connection = DriverManager.getConnection("jdbc:mysql://[DB server]/[username]?useSSL=false", "[DB name]", "[password]");
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Checks the state of the database connection
-	 * 
+	 *
 	 * @return the state of the database connection
-	 * 
+	 *
 	 * @author Niklas Sølvberg
 	 */
 	public static Boolean connected() {
@@ -39,10 +39,10 @@ public class DB {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Closes the connection to the database. This method is called when the program terminates
-	 * 
+	 *
 	 * @author Niklas Sølvberg
 	 */
 	public static void disconnect() {
@@ -53,13 +53,13 @@ public class DB {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Used for generating a resultset based on a select-query
-	 * 
+	 *
 	 * @param query is a select-query
 	 * @return the resultset from the query passed as an argument
-	 * 
+	 *
 	 * @author Niklas Sølvberg
 	 */
 	public static ResultSet select(String query) {
@@ -71,12 +71,12 @@ public class DB {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Used for queries that alter the content of the database, such as deletes or inserts
-	 * 
+	 *
 	 * @param query is a query that alter content of the database
-	 * 
+	 *
 	 * @author Niklas Sølvberg
 	 */
 	public static void alter(String query) {
@@ -88,23 +88,23 @@ public class DB {
 		}
 	}
 	// TODO allow the method to push the exception higher up, so the methods calling it can handle it. This will allow the application to give the user knowledge.
-	
+
 	/**
 	 * Used for queries that alter the content of the database, such as deletes (or inserts)
-	 * 
+	 *
 	 * @param query is a query that alter content of the database
-	 * 
+	 *
 	 * @author Niklas Sølvberg
 	 */
 	public static void delete(String query) {
 		alter(query);
 	}
-	
+
 	/**
 	 * Used for queries that alter the content of the database, such as (deletes or) inserts
-	 * 
+	 *
 	 * @param query is a query that alter content of the database
-	 * 
+	 *
 	 * @author Niklas Sølvberg
 	 */
 	public static void insert(String query) {
@@ -132,7 +132,7 @@ public class DB {
 		query = "INSERT INTO `user` VALUES (\"admin\", \"" + Hashing.generateHash("adminpass") + "\", \"A\");";
 		insert(query);
 	}
-	
+
 	private static void initoDB()
 	{
 		String query;
@@ -161,5 +161,5 @@ public class DB {
 		initoDB();
 		disconnect();
 	}
-	
+
 }
